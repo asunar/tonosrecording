@@ -1,11 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+<link rel="stylesheet" type="text/css" href="stylesheets/view.css" media="all">
+
+<script type="text/javascript" src="javascripts/calendar.js"></script>
   </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<body id="main_body" >
+	
+	
+	<div id="form_container">
+	
+		<h1><a>Untitled Form</a></h1>
+	<form action="" class="appnitro" method="POST">
+
+		<div class="form_description">
+		<h2>Recording Payment</h2>
+		<p>Enter your event information and credit card details to reserve your spot. All fields are required.</p>
+		<p>Credit card processing is handled by Stripe. We do not store any credit card information.</p>
+		</div>						
+		<ul >
+			<li id="li_1" >
+			<label class="description" for="element_1">First Name </label>
+			<div>
+				<input id="element_1" name="element_1" required class="element text medium" type="text" maxlength="255" value="<%= firstName %>"/> 
+			</div> 
+			</li>		
+			<li id="li_2" >
+			<label class="description" for="element_2">Last Name </label>
+			<div>
+				<input id="element_2" name="element_2" class="element text medium" type="text" maxlength="255" value="<%= lastName %>"/> 
+			</div> 
+			</li>		
+			<li id="li_3" >
+			<label class="description" for="element_3">Email </label>
+			<div>
+				<input id="element_3" name="element_3" class="element text medium" type="text" maxlength="255" value="<%= email %>"/> 
+			</div> 
+			</li>		
+			<li id="li_4" >
+			<label class="description" for="element_4">Event Date </label>
+			<span>
+				<input id="element_4_1" name="element_4_1" class="element text" size="2" maxlength="2" value="<%= eventDate_Month %>" type="text"> /
+			<label for="element_4_1">MM</label>
+			</span>
+			<span>
+				<input id="element_4_2" name="element_4_2" class="element text" size="2" maxlength="2" value="<%= eventDate_Day %>" type="text"> /
+			<label for="element_4_2">DD</label>
+			</span>
+			<span>
+				<input id="element_4_3" name="element_4_3" class="element text" size="4" maxlength="4" value="<%= eventDate_Year %>" type="text">
+			<label for="element_4_3">YYYY</label>
+			</span>
+
+			<span id="calendar_4">
+			<img id="cal_img_4" class="datepicker" src="images/calendar.gif" alt="Pick a date.">	
+			</span>
+			<script type="text/javascript">
+			Calendar.setup({
+			inputField	 : "element_4_3",
+			baseField    : "element_4",
+			displayArea  : "calendar_4",
+			button		 : "cal_img_4",
+			ifFormat	 : "%B %e, %Y",
+			onSelect	 : selectDate
+			});
+			</script>
+
+			</li>		
+			<li id="li_5" >
+			<label class="description" for="element_5">Event Start Time </label>
+			<span>
+			<input id="element_5_1" name="element_5_1" class="element text " size="2" type="text" maxlength="2" value=""/> : 
+			<label>HH</label>
+			</span>
+			<span>
+			<input id="element_5_2" name="element_5_2" class="element text " size="2" type="text" maxlength="2" value=""/>
+			<label>MM</label>
+			</span>
+			<span>
+			<%- select_tag("element_5_4",eventDate_AMPM,eventDate_AMPM_selected) %>
+			<label>AM/PM</label>
+			</span>
+			</li>		
+			<li id="li_8" >
+			<label class="description" for="element_8">Location </label>
+			<div>
+			<%- select_tag("element_88",locations,selectedLocation) %>
+			</div> 
+			</li>		
+			<li id="li_7" >
+			<label class="description" for="element_7">Service Agreement </label>
+			<div>
+			<textarea id="element_7" name="element_7" class="element textarea medium">
+			This agreement (“Agreement”) constitutes a binding contract for videography services and/or
+			products. By signing this Agreement, the clients, (collectively referred to below as “Client”) agree to pay Tonos Technology Solutions, LLC (“Company” or "We")
+			for the services and/or products(the “Services”)  provided by the Company at the price set forth in this document.
+
+			1. Scope. We render the Services on an hourly basis unless we otherwise agree in writing. 
+
+			2. Illness and Unexpected Events: Company will not be liable to
+			Client under any circumstances if its performance is prevented or impaired due to war,
+			insurrection, strikes, walk-outs, riots, fire, acts of God, including adverse weather conditions
+			and earthquakes, shortages or unavailability of labor or materials (power, internet connection), laws or governmental
+			restrictions which conflict with the terms of this Agreement, or any other matter beyond the
+			reasonable control of the Company. In the event of any unanticipated
+			videographer illness Company shall make reasonable efforts to
+			substitute another competent professional. If another videographer cannot be assigned in time
+			for the Event, Company shall promptly return to Client all fees
+			previously paid by Client, and shall then have no further liability with respect to this
+			Agreement. 
+
+			3. Video Quality / Blind spots: Videos will be recorded in HD (720p). Client agrees that due to the facility construction there may be areas that will be outside of 
+			the recording area. Client confirms that client had watched a sample video recorded at the selected facility.
+			Client agrees that Company will not issue any refunds for failing to record blind-spots that are outside the recording area.
+
+			4. Change Management Process. Client agrees that there will be no post-production editing.
+
+			5. Liquidated Damages: Client and Company recognize it is
+			extremely difficult and impractical to ascertain the extent of Client’s actual damage in the
+			event of a breach on the part of the Company. Therefore, the parties agree that
+			in the event of any breach arising from the negligence or other unintentional conduct of
+			the Company, including, without limitation, any damage to or loss of any
+			recording footage, Client shall be entitled to the following: A percentage reduction in the price of the
+			video package, based upon the amount of actual recording-time which has been damaged, lost or
+			not captured. Client would then receive the final product, containing the footage from the
+			Event, which was captured, not lost or damaged. The return of
+			such fees and payment of such damages shall be the sole and exclusive remedies available to
+			Client.
+
+			6. Publicity Rights / Promotional Use: The parties agree that the Company may use videos and/or 
+			images taken from videos for commercial use, including, without limitation, promotional videos,
+			signs and other marketing material.
+
+			7. Storage and Distribution: The videos will be uploaded to YouTube and the link will be emailed to
+			the client within 3 business days of the event. This will conclude 
+
+			8. Payment: 
+
+			Individual 1 hour recording: $30/hour
+			10 hours or more:		          $25/hour 
+
+			9. Cancellations: Company will issue a full refund if Client cancels 24 hours before the event
+			or earlier. Company will issue a 75% refund  if client cancels within 24 hours of the event.			
+			</textarea> 
+			</div> 
+			</li>		
+			<li id="li_6" >
+		<label class="description" for="element_6"> </label>
+		<span>
+		<%- checkbox_tag("agreement",{"value":"agreed"}) %>
+		<label class="choice" for="element_6_1">I agree to the service agreement</label>
+		</span> 
+		</li>							
+			</ul>			
+			<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+				data-amount="3000"
+				data-name="Tonos Technology"
+				data-description="Recording payment ($30)"
+				data-allow-remember-me= "false"	
+				data-image="/images/128x128.png">
+			</script>
+</form>
+
+			
+		</form>	
+	</div>
+	<img id="bottom" src="images/bottom.png" alt="">
+	</body>
 </html>

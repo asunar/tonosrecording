@@ -21,6 +21,7 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+require('express-helpers')(app);
 
 // development only
 if ('development' == app.get('env')) {
