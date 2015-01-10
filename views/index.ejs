@@ -17,7 +17,7 @@
 	<div id="form_container">
 	
 		<h1><a>Untitled Form</a></h1>
-	<form action="" class="appnitro" method="POST">
+	<form class="appnitro" method="POST" action="/charge">
 
 		<div class="form_description">
 		<h2>Recording Payment</h2>
@@ -37,31 +37,25 @@
 				<input id="lastName" name="lastName" class="element text medium" type="text" maxlength="255" value="<%= lastName %>"/> 
 			</div> 
 			</li>		
-			<li id="li_3" >
-			<label class="description" for="email">Email </label>
-			<div>
-				<input id="email" name="email" class="element text medium" type="text" maxlength="255" value="<%= email %>"/> 
-			</div> 
-			</li>		
 			<li id="li_8" >
-			<label class="description" for="element_8">Location </label>
+			<label class="description" for="location">Location </label>
 			<div>
-			<%- select_tag("element_88",locations,selectedLocation) %>
+			<%- select_tag("location",locations,selectedLocation) %>
 			</div> 
 			</li>
 
 			<li id="li_4" >
-			<label class="description" for="element_4">Event Date/Time</label>
+			<label class="description" for="eventDateTime">Event Date/Time</label>
 			<span>
-				<input type="text" id="datetimepicker3"/>
+				<input type="text" id="eventDateTime" name='eventDateTime' />
 			</span>
 			</li>		
 		
 		
 			<li id="li_7" >
-			<label class="description" for="element_7">Service Agreement </label>
+			<label class="description" for="serviceAgreement">Service Agreement </label>
 			<div>
-			<textarea id="element_7" name="element_7" class="element textarea medium">
+			<textarea id="serviceAgreement" class="element textarea medium">
 			This agreement (“Agreement”) constitutes a binding contract for videography services and/or
 			products. By signing this Agreement, the clients, (collectively referred to below as “Client”) agree to pay Tonos Technology Solutions, LLC (“Company” or "We")
 			for the services and/or products(the “Services”)  provided by the Company at the price set forth in this document.
@@ -116,10 +110,10 @@
 			</div> 
 			</li>		
 			<li id="li_6" >
-		<label class="description" for="element_6"> </label>
+		<label class="description" for="serviceAgreementConsent"> </label>
 		<span>
-		<%- checkbox_tag("agreement",{"value":"agreed"}) %>
-		<label class="choice" for="element_6_1">I agree to the service agreement</label>
+		<%- checkbox_tag("serviceAgreementConsent",{"value":"agreed"}) %>
+		<label class="choice" for="serviceAgreementConsent">I agree to the service agreement</label>
 		</span> 
 		</li>							
 			</ul>			
@@ -132,14 +126,20 @@
 				data-allow-remember-me= "false"	
 				data-image="/images/128x128.png">
 			</script>
+
+			<button type="submit">Submit</button>
 </form>
 
 			
-		</form>	
 	</div>
+	<ul>
+		<% for(var i=0; i<messages.length; i++) {%>
+			 <li><%= messages[i].text %></li>
+		<% } %>
+	</ul>	
 	<img id="bottom" src="images/bottom.png" alt="">
 	<script type="text/javascript" charset="utf-8">
-		$('#datetimepicker3').datetimepicker({ inline:true, formatTime:'h:i a'}); 
+		$('#eventDateTime').datetimepicker({ inline:true, formatTime:'h:i a'}); 
 	</script>
 	</body>
 </html>
