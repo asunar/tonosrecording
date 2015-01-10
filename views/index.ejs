@@ -6,8 +6,10 @@
     <title><%= title %></title>
 
 <link rel="stylesheet" type="text/css" href="stylesheets/view.css" media="all">
-
+<script src="https://code.jquery.com/jquery-2.1.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="javascripts/jquery.datetimepicker.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="javascripts/calendar.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/jquery.datetimepicker.css">
   </head>
 <body id="main_body" >
 	
@@ -24,74 +26,38 @@
 		</div>						
 		<ul >
 			<li id="li_1" >
-			<label class="description" for="element_1">First Name </label>
+			<label class="description" for="firstName">First Name </label>
 			<div>
-				<input id="element_1" name="element_1" required class="element text medium" type="text" maxlength="255" value="<%= firstName %>"/> 
+				<input id="firstName" name="firstName" required class="element text medium" type="text" maxlength="255" value="<%= firstName %>"/> 
 			</div> 
 			</li>		
 			<li id="li_2" >
-			<label class="description" for="element_2">Last Name </label>
+			<label class="description" for="lastName">Last Name </label>
 			<div>
-				<input id="element_2" name="element_2" class="element text medium" type="text" maxlength="255" value="<%= lastName %>"/> 
+				<input id="lastName" name="lastName" class="element text medium" type="text" maxlength="255" value="<%= lastName %>"/> 
 			</div> 
 			</li>		
 			<li id="li_3" >
-			<label class="description" for="element_3">Email </label>
+			<label class="description" for="email">Email </label>
 			<div>
-				<input id="element_3" name="element_3" class="element text medium" type="text" maxlength="255" value="<%= email %>"/> 
+				<input id="email" name="email" class="element text medium" type="text" maxlength="255" value="<%= email %>"/> 
 			</div> 
-			</li>		
-			<li id="li_4" >
-			<label class="description" for="element_4">Event Date </label>
-			<span>
-				<input id="element_4_1" name="element_4_1" class="element text" size="2" maxlength="2" value="<%= eventDate_Month %>" type="text"> /
-			<label for="element_4_1">MM</label>
-			</span>
-			<span>
-				<input id="element_4_2" name="element_4_2" class="element text" size="2" maxlength="2" value="<%= eventDate_Day %>" type="text"> /
-			<label for="element_4_2">DD</label>
-			</span>
-			<span>
-				<input id="element_4_3" name="element_4_3" class="element text" size="4" maxlength="4" value="<%= eventDate_Year %>" type="text">
-			<label for="element_4_3">YYYY</label>
-			</span>
-
-			<span id="calendar_4">
-			<img id="cal_img_4" class="datepicker" src="images/calendar.gif" alt="Pick a date.">	
-			</span>
-			<script type="text/javascript">
-			Calendar.setup({
-			inputField	 : "element_4_3",
-			baseField    : "element_4",
-			displayArea  : "calendar_4",
-			button		 : "cal_img_4",
-			ifFormat	 : "%B %e, %Y",
-			onSelect	 : selectDate
-			});
-			</script>
-
-			</li>		
-			<li id="li_5" >
-			<label class="description" for="element_5">Event Start Time </label>
-			<span>
-			<input id="element_5_1" name="element_5_1" class="element text " size="2" type="text" maxlength="2" value=""/> : 
-			<label>HH</label>
-			</span>
-			<span>
-			<input id="element_5_2" name="element_5_2" class="element text " size="2" type="text" maxlength="2" value=""/>
-			<label>MM</label>
-			</span>
-			<span>
-			<%- select_tag("element_5_4",eventDate_AMPM,eventDate_AMPM_selected) %>
-			<label>AM/PM</label>
-			</span>
 			</li>		
 			<li id="li_8" >
 			<label class="description" for="element_8">Location </label>
 			<div>
 			<%- select_tag("element_88",locations,selectedLocation) %>
 			</div> 
+			</li>
+
+			<li id="li_4" >
+			<label class="description" for="element_4">Event Date/Time</label>
+			<span>
+				<input type="text" id="datetimepicker3"/>
+			</span>
 			</li>		
+		
+		
 			<li id="li_7" >
 			<label class="description" for="element_7">Service Agreement </label>
 			<div>
@@ -172,5 +138,8 @@
 		</form>	
 	</div>
 	<img id="bottom" src="images/bottom.png" alt="">
+	<script type="text/javascript" charset="utf-8">
+		$('#datetimepicker3').datetimepicker({ inline:true, formatTime:'h:i a'}); 
+	</script>
 	</body>
 </html>
