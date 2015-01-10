@@ -9,5 +9,6 @@
     "express": "3.3.4",
     "ejs": "*",
     "stripe": "^3.0.3"
+		"express-helpers": "^1.3.1"	
   }
 }
