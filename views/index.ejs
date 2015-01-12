@@ -131,11 +131,7 @@
 
 			
 	</div>
-	<ul>
-		<% for(var i=0; i<messages.length; i++) {%>
-			 <li><%= messages[i].text %></li>
-		<% } %>
-	</ul>	
+
 	<img id="bottom" src="images/bottom.png" alt="">
 	<script type="text/javascript" charset="utf-8">
 		$('#eventDateTime').datetimepicker({ inline:true, formatTime:'h:i a'}); 
@@ -148,7 +144,13 @@
 
 			var isValid = isValidFirstName && isValidLastName && agreedToServiceAgreement;
 			$('.stripe-button-el').prop('disabled', !isValid);
-			$('#warningMessage').toggle();
+
+			var warningMessage = $('#warningMessage');
+			if(isValid){
+				warningMessage.hide();
+			} else {
+				warningMessage.show();
+			}
 		}		
 
 		$('#firstName').change(function(){ enablePayButtonIfValid(); });
