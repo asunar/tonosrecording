@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/view.css" media="all">
 <script src="https://code.jquery.com/jquery-2.1.3.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="javascripts/jquery.datetimepicker.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="javascripts/calendar.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/jquery.datetimepicker.css">
   </head>
 <body id="main_body" >
@@ -17,35 +16,35 @@
 	<div id="form_container">
 	
 		<h1><a>Untitled Form</a></h1>
-	<form class="appnitro" method="POST" action="/charge">
+	<form class="appnitro" method="POST" action="/charge" data-parsley-validate>
 
 		<div class="form_description">
-		<h2>Recording Payment</h2>
-		<p>Enter your event information and credit card details to reserve your spot. All fields are required.</p>
+		<h2>Payment for Video Recording</h2>
+		<p>Enter your event information and credit card details to reserve your spot.</p>
 		<p>Credit card processing is handled by Stripe. We do not store any credit card information.</p>
 		</div>						
 		<ul >
 			<li id="li_1" >
-			<label class="description" for="firstName">First Name </label>
+			<label class="description" for="firstName">First Name *</label>
 			<div>
 				<input id="firstName" name="firstName" required class="element text medium" type="text" maxlength="255" value="<%= firstName %>"/> 
 			</div> 
 			</li>		
 			<li id="li_2" >
-			<label class="description" for="lastName">Last Name </label>
+			<label class="description" for="lastName">Last Name *</label>
 			<div>
-				<input id="lastName" name="lastName" class="element text medium" type="text" maxlength="255" value="<%= lastName %>"/> 
+				<input id="lastName" name="lastName" required class="element text medium" type="text" maxlength="255" value="<%= lastName %>"/> 
 			</div> 
 			</li>		
 			<li id="li_8" >
-			<label class="description" for="location">Location </label>
+			<label class="description" for="location">Location *</label>
 			<div>
 			<%- select_tag("location",locations,selectedLocation) %>
 			</div> 
 			</li>
 
 			<li id="li_4" >
-			<label class="description" for="eventDateTime">Event Date/Time</label>
+			<label class="description" for="eventDateTime">Event Date/Time *</label>
 			<span>
 				<input type="text" id="eventDateTime" name='eventDateTime' />
 			</span>
@@ -53,7 +52,7 @@
 		
 		
 			<li id="li_7" >
-			<label class="description" for="serviceAgreement">Service Agreement </label>
+			<label class="description" for="serviceAgreement">Service Agreement *</label>
 			<div>
 			<textarea id="serviceAgreement" class="element textarea medium">
 			This agreement (“Agreement”) constitutes a binding contract for videography services and/or
@@ -117,6 +116,7 @@
 		</span> 
 		</li>							
 			</ul>			
+			<p id='warningMessage'style="display:block" >Please fill out all required fields.</p>
 			<script
 				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 				data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
@@ -127,7 +127,6 @@
 				data-image="/images/128x128.png">
 			</script>
 
-			<button type="submit">Submit</button>
 </form>
 
 			
@@ -140,6 +139,21 @@
 	<img id="bottom" src="images/bottom.png" alt="">
 	<script type="text/javascript" charset="utf-8">
 		$('#eventDateTime').datetimepicker({ inline:true, formatTime:'h:i a'}); 
+		$('.stripe-button-el').prop('disabled', 'true');
+
+		function enablePayButtonIfValid() {
+			var isValidFirstName = !!$('#firstName').val().trim();
+			var isValidLastName = !!$('#lastName').val().trim();
+			var agreedToServiceAgreement = $('#serviceAgreementConsent').is(":checked");
+
+			var isValid = isValidFirstName && isValidLastName && agreedToServiceAgreement;
+			$('.stripe-button-el').prop('disabled', !isValid);
+			$('#warningMessage').toggle();
+		}		
+
+		$('#firstName').change(function(){ enablePayButtonIfValid(); });
+		$('#lastName').change(function(){ enablePayButtonIfValid(); });
+		$('#serviceAgreementConsent').change(function(){ enablePayButtonIfValid(); });
 	</script>
 	</body>
 </html>
